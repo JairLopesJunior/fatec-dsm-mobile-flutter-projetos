@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 // Aceita omitir o tipo de retorno
 minhaFuncao() {
@@ -17,8 +18,8 @@ minhaFuncao3(int x, [int y = 6]) {
   return x * y;
 }
 
-void main(List<String> arguments) {
-  int year = 2016;
+playDataTypes() {
+int year = 2016;
   String bestStarWarsMovie = 'Rogue One - A Star Wars History';
   double tomatoesRating = 0.84;
 
@@ -147,6 +148,79 @@ void main(List<String> arguments) {
 
   var f = (int x) => x * 2;
   print(f(3));
+}
+
+void main(List<String> arguments) {
+  String? name;
+  print(name?.length);
+  print(name ?? 'Jair');
+  jumpLine();
+
+  name = null;
+  name ??= 'Paulo';
+  print(name);
+  jumpLine();
+
+  String nameF = getFullName('Ahsoka', 'Tano');
+  print(nameF);
+  jumpLine();
+
+  print(showRandomName('Paulo', 50));
+  jumpLine();
+
+  print(showRandomNameTwo(name: 'Paulo', max: 50));
+  jumpLine();
+
+  Function dobro = (int x) => x * 2;
+  print(dobro(100));
+  print(dobro.runtimeType);
+  jumpLine();
+
+  multiplyer(int value, int factory) => value * factory;
+  Function triple = (int value) => multiplyer(value, 3);
+  print(triple(100));
+  print(triple.runtimeType);
+  jumpLine();
+
+  double m = media(0, 10, 0, 10, algoritmo: ponderada);
+  print('Amédia é ${m.toStringAsFixed(1)}');
+  jumpLine();
+}
+
+// Exemplo [String title] 
+// Ou deixa com valor default "[String title = 'default']", 
+// Ou transforma o valor em nullable [String? title]
+String getFullName(String first, String last, [String? title]) {
+  return '${title ?? ''} $last $first';
+}
+
+// TODO: Criar uma função que gere um número da sorte aleatório,
+// A função deve parametrizar opcionalmente o nome e o valor limite
+// do número da sorte e exibir a mensagem com o número para o úsuario
+// exibindo o seu nome também.
+
+showRandomName([String? name, int? max]) {
+  int resp = Random().nextInt(max ?? 20);
+  return '$name o seu número da sorte é $resp';
+}
+
+// Transforma em obrigatório para passar a variável max
+showRandomNameTwo({String? name, required int max}) {
+  int resp = Random().nextInt(max);
+  return '$name o seu número da sorte é $resp';
+}
+
+double media(double a, double b, double c, double d, 
+  {required Function algoritmo}) {
+  return algoritmo(a, b, c, d);
+}
+
+double aritmetica(double a, double b, double c, double d) {
+  return (a + b + c + d) / 4;
+}
+
+double ponderada(double a, double b, double c, double d) {
+  return (a * 1 + b * 3 + c * 2 + d * 4) / 10;
 }
 
 jumpLine() {
